@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :budget_record do
+  factory :budget_record_v1, :class => V1::BudgetRecord do
     label { Faker::Lorem.word }
     record_type { 1 }
     category { Faker::Number.between(1, 3)}

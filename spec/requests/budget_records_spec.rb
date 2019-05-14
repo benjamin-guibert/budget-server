@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Budget records API', type: :request do
-  let!(:budget_records) { create_list(:budget_record, 10) }
+  let!(:budget_records) { create_list(:budget_record_v1, 10) }
   let(:budget_record_id) { budget_records.first.id }
 
-  describe 'GET /budget_records' do
-    before { get '/budget_records' }
+  describe 'GET /budget-records' do
+    before { get '/budget-records' }
 
     it 'returns budget records' do
       json = JSON.parse(response.body)
@@ -18,8 +18,8 @@ RSpec.describe 'Budget records API', type: :request do
     end
   end
 
-  describe 'GET /budget_records/:id' do
-    before { get "/budget_records/#{budget_record_id}" }
+  describe 'GET /budget-records/:id' do
+    before { get "/budget-records/#{budget_record_id}" }
 
     context 'when the record exists' do
       it 'returns the budget record' do
@@ -46,11 +46,11 @@ RSpec.describe 'Budget records API', type: :request do
     end
   end
 
-  describe 'POST /budget_records' do
+  describe 'POST /budget-records' do
     let(:valid_attributes) { { label: 'Test label', record_type: 1, category: 2, date_from: Date.new(2019, 5, 1), date_to: Date.new(2019, 5, 31), amount: 34.56 } }
 
     context 'when the request is valid' do
-      before { post '/budget_records', params: valid_attributes }
+      before { post '/budget-records', params: valid_attributes }
 
       it 'creates a budget record' do
         json = JSON.parse(response.body)
@@ -69,7 +69,7 @@ RSpec.describe 'Budget records API', type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/budget_records', params: { label: 'Test label' } }
+      before { post '/budget-records', params: { label: 'Test label' } }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -82,11 +82,11 @@ RSpec.describe 'Budget records API', type: :request do
     end
   end
 
-  describe 'PUT /budget_records/:id' do
+  describe 'PUT /budget-records/:id' do
     let(:valid_attributes) { { label: 'New label' } }
 
     context 'when the record exists' do
-      before { put "/budget_records/#{budget_record_id}", params: valid_attributes }
+      before { put "/budget-records/#{budget_record_id}", params: valid_attributes }
 
       it 'updates the budget record' do
         json = JSON.parse(response.body)
@@ -100,8 +100,8 @@ RSpec.describe 'Budget records API', type: :request do
     end
   end
 
-  describe 'DELETE /budget_records/:id' do
-    before { delete "/budget_records/#{budget_record_id}" }
+  describe 'DELETE /budget-records/:id' do
+    before { delete "/budget-records/#{budget_record_id}" }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)

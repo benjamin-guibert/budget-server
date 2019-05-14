@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe BudgetRecord, type: :model do
+RSpec.describe V1::BudgetRecord, type: :model do
   it { should validate_presence_of(:label) }
   it { should validate_presence_of(:record_type) }
   it { should validate_presence_of(:date_from) }
