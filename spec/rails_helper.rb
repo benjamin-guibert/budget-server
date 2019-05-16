@@ -67,10 +67,10 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  config.include FactoryBot::Syntax::Methods
-   config.before(:suite) do
+  config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
     DatabaseCleaner.strategy = :transaction
+    Dir[Rails.root.join('spec/factories/**/*.rb')].each { |f| require f }
   end
   config.around(:each) do |example|
     DatabaseCleaner.cleaning do

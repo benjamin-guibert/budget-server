@@ -31,9 +31,8 @@ Check the [`CHANGELOG.md`](CHANGELOG.md) file for the release history.
 - [Ruby on Rails](https://rubyonrails.org)
 - [RSpec Rails](https://relishapp.com/rspec/rspec-rails/docs)
 - [Shoulda Matchers](https://matchers.shoulda.io)
-- [factory_bot_rails](https://github.com/thoughtbot/factory_bot_rails)
 - [Database cleaner](http://databasecleaner.github.io)
-- [Faker](https://github.com/stympy/faker)
+- [HasScope](https://github.com/plataformatec/has_scope)
 
 ## Versionning
 
