@@ -165,8 +165,8 @@ RSpec.describe 'Budget records API V1', type: :request do
   describe 'POST /budget-records' do
     let(:budget_record_params) {{
       label: 'Label POST',
-      record_type: 2,
-      category: 2,
+      record_type: :expense,
+      category: :wants,
       date_from: Date.new(2019, 5, 1),
       date_to: Date.new(2019, 5, 31),
       amount: 34.56
@@ -179,8 +179,8 @@ RSpec.describe 'Budget records API V1', type: :request do
         expect(budget_record).to have_attributes(
           :id => 7,
           :label => 'Label POST',
-          :record_type => 2,
-          :category => 2,
+          :record_type => 'expense',
+          :category => 'wants',
           :date_from => Date.new(2019, 5, 1),
           :date_to => Date.new(2019, 5, 31),
           :amount => 34.56
@@ -190,8 +190,8 @@ RSpec.describe 'Budget records API V1', type: :request do
         json = JSON.parse(response.body)
         expect(json['id']).to eq(7)
         expect(json['label']).to eq('Label POST')
-        expect(json['record_type']).to eq(2)
-        expect(json['category']).to eq(2)
+        expect(json['record_type']).to eq('expense')
+        expect(json['category']).to eq('wants')
         expect(json['date_from']).to eq('2019-05-01')
         expect(json['date_to']).to eq('2019-05-31')
         expect(json['amount']).to eq('34.56')
@@ -214,8 +214,8 @@ RSpec.describe 'Budget records API V1', type: :request do
     let(:budget_record_id) { 2 }
     let(:budget_record_params) {{
       label: 'Label PUT',
-      record_type: 1,
-      category: 2,
+      record_type: :income,
+      category: :wants,
       date_from: Date.new(2019, 12, 1),
       date_to: Date.new(2019, 12, 31),
       amount: 34.56
@@ -227,8 +227,8 @@ RSpec.describe 'Budget records API V1', type: :request do
         budget_record = V1::BudgetRecord.find(budget_record_id)
         expect(budget_record).to have_attributes(
           :label => 'Label PUT',
-          :record_type => 2,
-          :category => 2,
+          :record_type => 'expense',
+          :category => 'wants',
           :date_from => Date.new(2019, 12, 1),
           :date_to => Date.new(2019, 12, 31),
           :amount => 34.56
@@ -237,8 +237,8 @@ RSpec.describe 'Budget records API V1', type: :request do
         expect(response).to have_http_status(:ok)
         json = JSON.parse(response.body)
         expect(json['label']).to eq('Label PUT')
-        expect(json['record_type']).to eq(2)
-        expect(json['category']).to eq(2)
+        expect(json['record_type']).to eq('expense')
+        expect(json['category']).to eq('wants')
         expect(json['date_from']).to eq('2019-12-01')
         expect(json['date_to']).to eq('2019-12-31')
         expect(json['amount']).to eq('34.56')

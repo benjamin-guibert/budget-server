@@ -9,7 +9,7 @@
 V1::BudgetRecord.create([{
   id: 1,
   label: 'Starting income',
-  record_type: 1,
+  record_type: :income,
   date_from: Date.new(2019, 4, 1),
   date_to: Date.new(2019, 4, 30),
   amount: 2345.67
@@ -17,8 +17,8 @@ V1::BudgetRecord.create([{
 {
   id: 2,
   label: "VPN",
-  record_type: 2,
-  category: 0,
+  record_type: :expense,
+  category: :needs,
   date_from: Date.new(2019, 4, 1),
   date_to: Date.new(2019, 4, 30),
   amount: 3.59
@@ -26,8 +26,8 @@ V1::BudgetRecord.create([{
 {
   id: 3,
   label: "Mobile phone",
-  record_type: 2,
-  category: 0,
+  record_type: :expense,
+  category: :needs,
   date_from: Date.new(2019, 4, 1),
   date_to: Date.new(2019, 4, 30),
   amount: 8.99
@@ -35,7 +35,7 @@ V1::BudgetRecord.create([{
 {
   id: 4,
   label: "Starting income",
-  record_type: 1,
+  record_type: :income,
   date_from: Date.new(2019, 5, 1),
   date_to: Date.new(2019, 5, 31),
   amount: 2333.09
@@ -43,8 +43,8 @@ V1::BudgetRecord.create([{
 {
   id: 5,
   label: "VPN",
-  record_type: 2,
-  category: 0,
+  record_type: :expense,
+  category: :needs,
   date_from: Date.new(2019, 5, 1),
   date_to: Date.new(2019, 5, 31),
   amount: 3.59
@@ -52,8 +52,8 @@ V1::BudgetRecord.create([{
 {
   id: 6,
   label: "Mobile phone",
-  record_type: 2,
-  category: 0,
+  record_type: :expense,
+  category: :needs,
   date_from: Date.new(2019, 5, 1),
   date_to: Date.new(2019, 5, 31),
   amount: 8.99
@@ -61,7 +61,7 @@ V1::BudgetRecord.create([{
 {
   id: 7,
   label: "Starting income",
-  record_type: 1,
+  record_type: :income,
   date_from: Date.new(2019, 6, 1),
   date_to: Date.new(2019, 6, 30),
   amount: 2320.51
@@ -69,8 +69,8 @@ V1::BudgetRecord.create([{
 {
   id: 8,
   label: "VPN",
-  record_type: 2,
-  category: 0,
+  record_type: :expense,
+  category: :needs,
   date_from: Date.new(2019, 6, 1),
   date_to: Date.new(2019, 6, 30),
   amount: 3.59
@@ -78,7 +78,7 @@ V1::BudgetRecord.create([{
 {
   id: 9,
   label: "Starting income",
-  record_type: 1,
+  record_type: :income,
   date_from: Date.new(2019, 7, 1),
   date_to: Date.new(2019, 7, 31),
   amount: 2316.92
@@ -86,7 +86,7 @@ V1::BudgetRecord.create([{
 {
   id: 10,
   label: "Starting income",
-  record_type: 1,
+  record_type: :income,
   date_from: Date.new(2019, 8, 1),
   date_to: Date.new(2019, 8, 31),
   amount: 2316.92
@@ -94,7 +94,7 @@ V1::BudgetRecord.create([{
 {
   id: 11,
   label: "Starting income",
-  record_type: 1,
+  record_type: :income,
   date_from: Date.new(2019, 9, 1),
   date_to: Date.new(2019, 9, 30),
   amount: 2316.92
@@ -102,7 +102,7 @@ V1::BudgetRecord.create([{
 {
   id: 12,
   label: "Starting income",
-  record_type: 1,
+  record_type: :income,
   date_from: Date.new(2019, 10, 1),
   date_to: Date.new(2019, 10, 31),
   amount: 2316.92
@@ -110,7 +110,7 @@ V1::BudgetRecord.create([{
 {
   id: 13,
   label: "Starting income",
-  record_type: 1,
+  record_type: :income,
   date_from: Date.new(2019, 11, 1),
   date_to: Date.new(2019, 11, 30),
   amount: 2316.92

@@ -17,7 +17,7 @@ RSpec.describe V1::BudgetRecord, type: :model do
       budget_records[4]
     ]
 
-    expect(V1::BudgetRecord.by_type(2)).to match_array(expected)
+    expect(V1::BudgetRecord.by_type(:expense)).to match_array(expected)
   end
 
   it "gets all incomes" do
