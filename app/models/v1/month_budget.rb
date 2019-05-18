@@ -2,15 +2,16 @@ class V1::MonthBudget < ApplicationRecord
 
   # Relations
 
-  has_many :budget_records, -> { order(:date_from) }
+  has_many :budget_records, -> { order(:date_from) }, dependent: :destroy
 
-  # Scopes
+  # Finds
 
-  scope :by_month, -> (year, month) {
+  def self.find_by_month(year, month)
     raise ArgumentError.new() unless (year.is_a?(Integer) && month.is_a?(Integer))
 
-    where('year = ? AND month = ?', year, month)
-  }
+    results = where('year = ? AND month = ?', year, month)
+    results.first unless results.size != 1
+  end
 
   # Validations
 
@@ -21,12 +22,6 @@ class V1::MonthBudget < ApplicationRecord
   validate :read_only_fields_cannot_be_updated, on: :update
 
   validates_associated :budget_records
-
-  def self.find_by_month(year, month)
-    results = self.by_month(year, month)
-
-    results.first unless results.size != 1
-  end
 
   private
 

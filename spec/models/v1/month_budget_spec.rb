@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe V1::MonthBudget, type: :model do
-  let!(:records) { described_class.all }
 
   describe 'find a record by month' do
     let(:year) { 2019 }
@@ -135,6 +134,18 @@ RSpec.describe V1::MonthBudget, type: :model do
       subject.month = 6
 
       expect(subject).to be_invalid
+    end
+  end
+
+  describe 'destroy a month budget' do
+    it 'destroys the month budget and its records' do
+      month_budget = described_class.find(1)
+
+      month_budget.destroy!
+
+      expect { month_budget.reload }.to raise_error(ActiveRecord::RecordNotFound)
+      expect { V1::BudgetRecord.find(1) }.to raise_error(ActiveRecord::RecordNotFound)
+      expect { V1::BudgetRecord.find(2) }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 end
