@@ -38,20 +38,28 @@ RSpec.describe V1::MonthBudget, type: :model do
     let(:year) { 2019 }
     let(:month) { :february }
 
-    before { @month_budget = described_class.find_by_month(year, month) }
+    before {
+      begin
+        @month_budget = described_class.find_by_month(year, month)
+      rescue ActiveRecord::RecordNotFound => error
+        @error = error
+      end
+    }
 
     context 'when parameters are valid' do
       it 'returns a month budget' do
         expect(@month_budget).to be
         expect(@month_budget.id).to eq(2)
+        expect(@error).to be_nil
       end
     end
 
     context 'when year is invalid' do
       let(:year) { 'test' }
 
-      it 'returns nothing' do
+      it 'throws an error' do
         expect(@month_budget).to be_nil
+        expect(@error).to be
       end
     end
 

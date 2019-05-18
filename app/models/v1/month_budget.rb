@@ -28,8 +28,7 @@ class V1::MonthBudget < ApplicationRecord
   # Finds
 
   def self.find_by_month(year, month)
-    results = where(year: year).where(month: month)
-    results.first unless results.size != 1
+    find_by!(year: year, month: month)
   end
 
   # Validations
