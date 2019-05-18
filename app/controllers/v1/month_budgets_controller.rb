@@ -1,5 +1,4 @@
 class V1::MonthBudgetsController < ApplicationController
-  before_action :set_month_budget, only: [:show, :update, :destroy]
 
   def index
     month_budgets = apply_scopes(V1::MonthBudget).ordered_by_date
@@ -14,6 +13,8 @@ class V1::MonthBudgetsController < ApplicationController
   end
 
   def show
+    @month_budget = V1::MonthBudget.find(params[:id])
+
     render_month_budget
   end
 
@@ -23,11 +24,6 @@ class V1::MonthBudgetsController < ApplicationController
   end
 
   private
-
-  def set_month_budget
-    @month_budget = V1::MonthBudget.find(params[:id])
-  end
-
   def render_month_budget
     render json: @month_budget,
       include: {
