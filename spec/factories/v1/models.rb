@@ -16,8 +16,18 @@ monthBudgets = V1::MonthBudget.create([{
 },{
   id: 4,
   year: 2019,
+  month: 5,
+  initial_balance: 5878.43
+},{
+  id: 5,
+  year: 2019,
   month: 4,
   initial_balance: 5878.43
+},{
+  id: 6,
+  year: 2018,
+  month: 12,
+  initial_balance: 0
 }])
 
 V1::BudgetRecord.create([{
@@ -25,7 +35,7 @@ V1::BudgetRecord.create([{
   month_budget: monthBudgets[0],
   label: "Income 1",
   record_type: :income,
-  date_from: Date.new(2019, 1, 1),
+  date_from: Date.new(2019, 1, 2),
   date_to: Date.new(2019, 1, 31),
   amount: 1234.56,
 },{

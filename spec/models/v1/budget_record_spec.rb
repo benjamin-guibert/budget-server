@@ -2,21 +2,21 @@ require 'rails_helper'
 
 
 RSpec.describe V1::BudgetRecord, type: :model do
-  let!(:records) { described_class.all }
+  let!(:budget_records) { described_class.all }
 
-  describe 'get records by type' do
+  describe 'get budget records by type' do
     let!(:category_type) { :expense }
-    before { @records = described_class.by_type(category_type) }
+    before { @budget_records = described_class.by_type(category_type) }
 
     context 'when type is valid' do
-      it 'returns records' do
-        expected = [
-          records[1],
-          records[2],
-          records[4]
+      it 'returns budget records' do
+        expected_budget_records = [
+          budget_records[1],
+          budget_records[2],
+          budget_records[4]
         ]
 
-        expect(@records).to match_array(expected)
+        expect(@budget_records).to match_array(expected_budget_records)
       end
     end
 
@@ -24,50 +24,50 @@ RSpec.describe V1::BudgetRecord, type: :model do
       let(:category_type) { 999 }
 
       it 'returns nothing' do
-        expected = []
+        expected_budget_records = []
 
-        expect(@records).to match_array(expected)
+        expect(@budget_records).to match_array(expected_budget_records)
       end
     end
   end
 
   describe 'get income records' do
     it 'returns records' do
-      expected = [
-        records[0],
-        records[3],
-        records[5]
+      expected_budget_records = [
+        budget_records[0],
+        budget_records[3],
+        budget_records[5]
       ]
 
-      expect(described_class.incomes).to match_array(expected)
+      expect(described_class.incomes).to match_array(expected_budget_records)
     end
   end
 
   describe 'get expense records' do
     it 'returns records' do
-      expected = [
-        records[1],
-        records[2],
-        records[4]
+      expected_budget_records = [
+        budget_records[1],
+        budget_records[2],
+        budget_records[4]
       ]
 
-      expect(described_class.expenses).to match_array(expected)
+      expect(described_class.expenses).to match_array(expected_budget_records)
     end
   end
 
-  describe 'get records by date' do
+  describe 'get budget records by date' do
     let!(:dates) {{ from: Date.new(2019, 2, 1), to: Date.new(2019, 2, 28) }}
-    before { @records = described_class.by_date(dates[:from], dates[:to]) }
+    before { @budget_records = described_class.by_date(dates[:from], dates[:to]) }
 
     context 'when date is valid' do
       it 'returns records' do
-        expected = [
-          records[2],
-          records[3],
-          records[4]
+        expected_budget_records = [
+          budget_records[2],
+          budget_records[3],
+          budget_records[4]
         ]
 
-        expect(@records).to match_array(expected)
+        expect(@budget_records).to match_array(expected_budget_records)
       end
     end
 
@@ -75,9 +75,9 @@ RSpec.describe V1::BudgetRecord, type: :model do
       let!(:dates) {{ from: nil, to: Date.new(2019, 2, 28) }}
 
       it 'returns nothing' do
-        expected = []
+        expected_budget_records = []
 
-        expect(@records).to match_array(expected)
+        expect(@budget_records).to match_array(expected_budget_records)
       end
     end
 
@@ -85,9 +85,9 @@ RSpec.describe V1::BudgetRecord, type: :model do
       let!(:dates) {{ from: Date.new(2019, 2, 28), to: Date.new(2019, 2, 1) }}
 
       it 'returns nothing' do
-        expected = []
+        expected_budget_records = []
 
-        expect(@records).to match_array(expected)
+        expect(@budget_records).to match_array(expected_budget_records)
       end
     end
   end
@@ -244,6 +244,17 @@ RSpec.describe V1::BudgetRecord, type: :model do
       subject.month_budget_id = 1
 
       expect(subject).to be_invalid
+    end
+  end
+
+  describe 'destroy a budget record' do
+    subject { described_class.find(1) }
+
+    it 'destroys the budget record but not the month budget' do
+      subject.destroy!
+
+      expect { subject.reload }.to raise_error(ActiveRecord::RecordNotFound)
+      expect(V1::MonthBudget.find(1)).to be
     end
   end
 end

@@ -1,23 +1,55 @@
 require 'rails_helper'
 
 RSpec.describe V1::MonthBudget, type: :model do
+  let!(:month_budgets) { described_class.all }
 
-  describe 'find a record by month' do
+  describe 'get month budgets with records ordered by date from' do
+    it 'returns month budgets' do
+      month_budget = described_class.find(1)
+      budget_records = V1::BudgetRecord.where(month_budget_id: 1)
+
+      expected_budget_records = [
+        budget_records[1],
+        budget_records[0]
+      ]
+
+      expect(month_budget.budget_records).to match_array(expected_budget_records)
+    end
+  end
+
+  describe 'get month budgets ordered by date' do
+    before { @month_budgets = described_class.ordered_by_date() }
+
+    it 'returns month budgets' do
+      expected_month_budgets = [
+        month_budgets[5],
+        month_budgets[0],
+        month_budgets[1],
+        month_budgets[2],
+        month_budgets[4],
+        month_budgets[3]
+      ]
+
+      expect(@month_budgets).to match_array(expected_month_budgets)
+    end
+  end
+
+  describe 'find a month budget by month' do
     let(:year) { 2019 }
     let(:month) { 2 }
 
     before do
       begin
-        @record = described_class.find_by_month(year, month)
+        @month_budget = described_class.find_by_month(year, month)
       rescue ArgumentError => e
         @error = e
       end
     end
 
     context 'when parameters are valid' do
-      it 'returns a record' do
-        expect(@record).to be
-        expect(@record.id).to eq(2)
+      it 'returns a month budget' do
+        expect(@month_budget).to be
+        expect(@month_budget.id).to eq(2)
         expect(@error).to be_nil
       end
     end
@@ -26,7 +58,7 @@ RSpec.describe V1::MonthBudget, type: :model do
       let(:year) { 'test' }
 
       it 'throw an exception' do
-        expect(@record).to be_nil
+        expect(@month_budget).to be_nil
         expect(@error).to be_a(ArgumentError)
       end
     end
@@ -35,7 +67,7 @@ RSpec.describe V1::MonthBudget, type: :model do
       let(:year) { 2010 }
 
       it 'returns nothing' do
-        expect(@record).to be_nil
+        expect(@month_budget).to be_nil
         expect(@error).to be_nil
       end
     end
@@ -44,7 +76,7 @@ RSpec.describe V1::MonthBudget, type: :model do
       let(:month) { 'test' }
 
       it 'throw an exception' do
-        expect(@record).to be_nil
+        expect(@month_budget).to be_nil
         expect(@error).to be_a(ArgumentError)
       end
     end
@@ -53,7 +85,7 @@ RSpec.describe V1::MonthBudget, type: :model do
       let(:month) { 12 }
 
       it 'returns nothing' do
-        expect(@record).to be_nil
+        expect(@month_budget).to be_nil
         expect(@error).to be_nil
       end
     end
@@ -62,7 +94,7 @@ RSpec.describe V1::MonthBudget, type: :model do
   describe 'validate a month budget' do
     subject { described_class.new({
       year: 2019,
-      month: 5,
+      month: 6,
       initial_balance: 1234.56
     })}
 
@@ -131,19 +163,18 @@ RSpec.describe V1::MonthBudget, type: :model do
 
     it 'is invalid when month is changed on update' do
       subject.save!
-      subject.month = 6
+      subject.month = 7
 
       expect(subject).to be_invalid
     end
   end
 
   describe 'destroy a month budget' do
+    subject { described_class.find(1) }
     it 'destroys the month budget and its records' do
-      month_budget = described_class.find(1)
+      subject.destroy!
 
-      month_budget.destroy!
-
-      expect { month_budget.reload }.to raise_error(ActiveRecord::RecordNotFound)
+      expect { subject.reload }.to raise_error(ActiveRecord::RecordNotFound)
       expect { V1::BudgetRecord.find(1) }.to raise_error(ActiveRecord::RecordNotFound)
       expect { V1::BudgetRecord.find(2) }.to raise_error(ActiveRecord::RecordNotFound)
     end

@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Budget records API V1', type: :request do
-  let!(:budget_records) { V1::BudgetRecord.all }
-
   describe 'GET /budget-records' do
     let(:budget_records_params) {}
     before { get '/budget-records',  params: budget_records_params}
@@ -93,7 +91,6 @@ RSpec.describe 'Budget records API V1', type: :request do
       end
     end
 
-
     context 'when by date invalid' do
       let(:budget_records_params) {{
         date: 'test'
@@ -121,7 +118,6 @@ RSpec.describe 'Budget records API V1', type: :request do
         expect(json.map { |i| i["id"]}).to eq([1, 4, 6])
       end
     end
-
 
     context 'when by expenses' do
       let(:budget_records_params) {{

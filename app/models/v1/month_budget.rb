@@ -4,6 +4,10 @@ class V1::MonthBudget < ApplicationRecord
 
   has_many :budget_records, -> { order(:date_from) }, dependent: :destroy
 
+  # Scopes
+
+  scope :ordered_by_date, -> { order(year: :asc, month: :asc) }
+
   # Finds
 
   def self.find_by_month(year, month)
