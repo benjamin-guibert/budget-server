@@ -1,9 +1,5 @@
 class V1::BudgetRecord < ApplicationRecord
 
-  # Relations
-
-  belongs_to :month_budget
-
   # Enumerations
 
   enum record_type: {
@@ -16,6 +12,10 @@ class V1::BudgetRecord < ApplicationRecord
     needs: 1,
     wants: 2
   }
+
+  # Relations
+
+  belongs_to :month_budget
 
   # Scopes
 

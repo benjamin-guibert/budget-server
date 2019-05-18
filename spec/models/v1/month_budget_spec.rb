@@ -36,30 +36,22 @@ RSpec.describe V1::MonthBudget, type: :model do
 
   describe 'find a month budget by month' do
     let(:year) { 2019 }
-    let(:month) { 2 }
+    let(:month) { :february }
 
-    before do
-      begin
-        @month_budget = described_class.find_by_month(year, month)
-      rescue ArgumentError => e
-        @error = e
-      end
-    end
+    before { @month_budget = described_class.find_by_month(year, month) }
 
     context 'when parameters are valid' do
       it 'returns a month budget' do
         expect(@month_budget).to be
         expect(@month_budget.id).to eq(2)
-        expect(@error).to be_nil
       end
     end
 
     context 'when year is invalid' do
       let(:year) { 'test' }
 
-      it 'throw an exception' do
+      it 'returns nothing' do
         expect(@month_budget).to be_nil
-        expect(@error).to be_a(ArgumentError)
       end
     end
 
@@ -68,25 +60,22 @@ RSpec.describe V1::MonthBudget, type: :model do
 
       it 'returns nothing' do
         expect(@month_budget).to be_nil
-        expect(@error).to be_nil
       end
     end
 
     context 'when month is invalid' do
       let(:month) { 'test' }
 
-      it 'throw an exception' do
+      it 'returns nothing' do
         expect(@month_budget).to be_nil
-        expect(@error).to be_a(ArgumentError)
       end
     end
 
     context 'when month is unknown' do
-      let(:month) { 12 }
+      let(:month) { :december }
 
       it 'returns nothing' do
         expect(@month_budget).to be_nil
-        expect(@error).to be_nil
       end
     end
   end
@@ -94,7 +83,7 @@ RSpec.describe V1::MonthBudget, type: :model do
   describe 'validate a month budget' do
     subject { described_class.new({
       year: 2019,
-      month: 6,
+      month: :june,
       initial_balance: 1234.56
     })}
 
@@ -124,18 +113,8 @@ RSpec.describe V1::MonthBudget, type: :model do
       expect(subject).to be_invalid
     end
 
-    it 'is invalid when month is invalid' do
-      subject.month = 0
-
-      expect(subject).to be_invalid
-
-      subject.month = 13
-
-      expect(subject).to be_invalid
-    end
-
     it 'is invalid when month already exists' do
-      subject.month = 1
+      subject.month = :january
 
       expect(subject).to be_invalid
     end
@@ -163,7 +142,7 @@ RSpec.describe V1::MonthBudget, type: :model do
 
     it 'is invalid when month is changed on update' do
       subject.save!
-      subject.month = 7
+      subject.month = :july
 
       expect(subject).to be_invalid
     end

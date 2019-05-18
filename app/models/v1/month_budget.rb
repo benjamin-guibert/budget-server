@@ -1,5 +1,22 @@
 class V1::MonthBudget < ApplicationRecord
 
+  # Enumerations
+
+  enum month: {
+    january: 1,
+    february: 2,
+    march: 3,
+    april: 4,
+    may: 5,
+    june: 6,
+    july: 7,
+    august: 8,
+    september: 9,
+    october: 10,
+    november: 11,
+    december: 12
+  }
+
   # Relations
 
   has_many :budget_records, -> { order(:date_from) }, dependent: :destroy
@@ -11,16 +28,14 @@ class V1::MonthBudget < ApplicationRecord
   # Finds
 
   def self.find_by_month(year, month)
-    raise ArgumentError.new() unless (year.is_a?(Integer) && month.is_a?(Integer))
-
-    results = where('year = ? AND month = ?', year, month)
+    results = where(year: year).where(month: month)
     results.first unless results.size != 1
   end
 
   # Validations
 
   validates :year, presence: true, numericality: { only_integer: true, greater_than: 0, less_than: 3000 }
-  validates :month, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 12 },  uniqueness: { scope: :year }
+  validates :month, presence: true, inclusion: %w(january february march april may june july august september october november december),  uniqueness: { scope: :year }
   validates :initial_balance, presence: true, numericality: true
 
   validate :read_only_fields_cannot_be_updated, on: :update

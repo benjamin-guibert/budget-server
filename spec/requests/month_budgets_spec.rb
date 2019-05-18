@@ -9,8 +9,10 @@ RSpec.describe 'Month budgets API V1', type: :request do
 
         json = JSON.parse(response.body)
         expect(json).not_to be_empty
-        expect(json.map { |i| i["id"]}).to eq([1, 2, 3, 4, 5, 6])
+        expect(json.map { |i| i["id"]}).to eq([6, 1, 2, 3, 5, 4])
       end
     end
   end
+
+  # describe 'GET /month-budgets/:year/:month'
 end

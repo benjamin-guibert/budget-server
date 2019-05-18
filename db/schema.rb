@@ -22,7 +22,9 @@ ActiveRecord::Schema.define(version: 2019_05_17_141623) do
     t.bigint "month_budget_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["date_from"], name: "index_budget_records_on_date_from"
     t.index ["month_budget_id"], name: "index_budget_records_on_month_budget_id"
+    t.index ["record_type"], name: "index_budget_records_on_record_type"
   end
 
   create_table "month_budgets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -31,6 +33,8 @@ ActiveRecord::Schema.define(version: 2019_05_17_141623) do
     t.decimal "initial_balance", precision: 10, scale: 2, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["month"], name: "index_month_budgets_on_month"
+    t.index ["year"], name: "index_month_budgets_on_year"
   end
 
   add_foreign_key "budget_records", "month_budgets"
