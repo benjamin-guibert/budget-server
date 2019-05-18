@@ -17,7 +17,7 @@ class V1::BudgetRecordsController < ApplicationController
   end
 
   def create
-    budget_record = V1::BudgetRecord.create!(budget_record_create_params)
+    budget_record = V1::BudgetRecord.create!(budget_record_params)
     json_response(budget_record, :created)
   end
 
@@ -28,7 +28,7 @@ class V1::BudgetRecordsController < ApplicationController
 
   def update
     budget_record = V1::BudgetRecord.find(params[:id])
-    budget_record.update(budget_record_update_params)
+    budget_record.update!(budget_record_params)
     json_response(budget_record)
   end
 
@@ -40,11 +40,7 @@ class V1::BudgetRecordsController < ApplicationController
 
   private
 
-  def budget_record_create_params
+  def budget_record_params
     params.permit(:label, :record_type, :category, :date_from, :date_to, :amount)
-  end
-
-  def budget_record_update_params
-    params.permit(:label, :category, :date_from, :date_to, :amount)
   end
 end

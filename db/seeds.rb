@@ -1,21 +1,62 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+monthBudgets = V1::MonthBudget.create([{
+  id: 1,
+  year: 2019,
+  month: 4,
+  initial_balance: 1623.73
+},{
+  id: 2,
+  year: 2019,
+  month: 5,
+  initial_balance: 2437.15
+},{
+  id: 3,
+  year: 2019,
+  month: 6,
+  initial_balance: 3616.57
+},{
+  id: 4,
+  year: 2019,
+  month: 7,
+  initial_balance: 4262.98
+},{
+  id: 5,
+  year: 2019,
+  month: 8,
+  initial_balance: 4262.98
+},{
+  id: 6,
+  year: 2019,
+  month: 9,
+  initial_balance: 4262.98
+},{
+  id: 7,
+  year: 2019,
+  month: 10,
+  initial_balance: 4262.98
+},{
+  id: 8,
+  year: 2019,
+  month: 11,
+  initial_balance: 4262.98
+},{
+  id: 9,
+  year: 2019,
+  month: 12,
+  initial_balance: 4262.98
+}])
 
 V1::BudgetRecord.create([{
   id: 1,
-  label: 'Starting income',
+  month_budget: monthBudgets[0],
+  label: 'Bill #201904-01',
   record_type: :income,
   date_from: Date.new(2019, 4, 1),
   date_to: Date.new(2019, 4, 30),
-  amount: 2345.67
+  amount: 826.00
 },
 {
   id: 2,
+  month_budget: monthBudgets[0],
   label: "VPN",
   record_type: :expense,
   category: :needs,
@@ -25,6 +66,7 @@ V1::BudgetRecord.create([{
 },
 {
   id: 3,
+  month_budget: monthBudgets[0],
   label: "Mobile phone",
   record_type: :expense,
   category: :needs,
@@ -34,14 +76,16 @@ V1::BudgetRecord.create([{
 },
 {
   id: 4,
-  label: "Starting income",
+  month_budget: monthBudgets[1],
+  label: "Bill #201905-01",
   record_type: :income,
   date_from: Date.new(2019, 5, 1),
   date_to: Date.new(2019, 5, 31),
-  amount: 2333.09
+  amount: 1192.00
 },
 {
   id: 5,
+  month_budget: monthBudgets[1],
   label: "VPN",
   record_type: :expense,
   category: :needs,
@@ -51,6 +95,7 @@ V1::BudgetRecord.create([{
 },
 {
   id: 6,
+  month_budget: monthBudgets[1],
   label: "Mobile phone",
   record_type: :expense,
   category: :needs,
@@ -60,58 +105,20 @@ V1::BudgetRecord.create([{
 },
 {
   id: 7,
-  label: "Starting income",
+  month_budget: monthBudgets[2],
+  label: "Bill #201906-01",
   record_type: :income,
   date_from: Date.new(2019, 6, 1),
   date_to: Date.new(2019, 6, 30),
-  amount: 2320.51
+  amount: 650.00
 },
 {
   id: 8,
+  month_budget: monthBudgets[2],
   label: "VPN",
   record_type: :expense,
   category: :needs,
   date_from: Date.new(2019, 6, 1),
   date_to: Date.new(2019, 6, 30),
   amount: 3.59
-},
-{
-  id: 9,
-  label: "Starting income",
-  record_type: :income,
-  date_from: Date.new(2019, 7, 1),
-  date_to: Date.new(2019, 7, 31),
-  amount: 2316.92
-},
-{
-  id: 10,
-  label: "Starting income",
-  record_type: :income,
-  date_from: Date.new(2019, 8, 1),
-  date_to: Date.new(2019, 8, 31),
-  amount: 2316.92
-},
-{
-  id: 11,
-  label: "Starting income",
-  record_type: :income,
-  date_from: Date.new(2019, 9, 1),
-  date_to: Date.new(2019, 9, 30),
-  amount: 2316.92
-},
-{
-  id: 12,
-  label: "Starting income",
-  record_type: :income,
-  date_from: Date.new(2019, 10, 1),
-  date_to: Date.new(2019, 10, 31),
-  amount: 2316.92
-},
-{
-  id: 13,
-  label: "Starting income",
-  record_type: :income,
-  date_from: Date.new(2019, 11, 1),
-  date_to: Date.new(2019, 11, 30),
-  amount: 2316.92
 }])
