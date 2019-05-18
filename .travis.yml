@@ -1,0 +1,10 @@
+language: ruby
+services:
+  - mysql
+branches:
+  only:
+    - master
+    - release\/.*
+    - develop
+before_install:
+  - mysql -e 'CREATE DATABASE budget_test;'
