@@ -10,7 +10,7 @@ development:
   username: budget
 
 test:
-  <<: *default:
+  <<: *default
   database: budget_test
   username: travis
 
