@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 2019_05_17_141623) do
 
-  create_table "budget_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "budget_records", force: :cascade do |t|
     t.string "label", null: false
     t.integer "record_type", null: false
     t.integer "category"
@@ -27,7 +30,7 @@ ActiveRecord::Schema.define(version: 2019_05_17_141623) do
     t.index ["record_type"], name: "index_budget_records_on_record_type"
   end
 
-  create_table "month_budgets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "month_budgets", force: :cascade do |t|
     t.integer "year", null: false
     t.integer "month", null: false
     t.decimal "initial_balance", precision: 10, scale: 2, null: false

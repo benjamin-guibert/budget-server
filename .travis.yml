@@ -1,10 +1,12 @@
 language: ruby
 services:
-  - mysql
+  - postgresql
 branches:
   only:
     - master
     - release\/.*
     - develop
+before_script:
+  - cp config/database.travis.yml config/database.yml
 before_install:
-  - mysql -e 'CREATE DATABASE budget_test;'
+  - psql -c 'create database budget_test;' -U postgres
