@@ -10,4 +10,5 @@ before_script:
   - cp config/database.travis.yml config/database.yml
 before_install:
   - psql -c 'create database budget_test;' -U postgres
+  - bundle install
   - "bundle exec rake db:migrate"
