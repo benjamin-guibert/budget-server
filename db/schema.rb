@@ -15,20 +15,8 @@ ActiveRecord::Schema.define(version: 2019_05_17_141623) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "budget_records", force: :cascade do |t|
-    t.string "label", null: false
-    t.integer "record_type", null: false
-    t.integer "category"
-    t.date "date_from", null: false
-    t.date "date_to", null: false
-    t.decimal "amount", precision: 10, scale: 2, null: false
-    t.bigint "month_budget_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["date_from"], name: "index_budget_records_on_date_from"
-    t.index ["month_budget_id"], name: "index_budget_records_on_month_budget_id"
-    t.index ["record_type"], name: "index_budget_records_on_record_type"
-  end
+# Could not dump table "budget_records" because of following StandardError
+#   Unknown type 'record_type' for column 'record_type'
 
   create_table "month_budgets", force: :cascade do |t|
     t.integer "year", null: false

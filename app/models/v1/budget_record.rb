@@ -3,14 +3,14 @@ class V1::BudgetRecord < ApplicationRecord
   # Enumerations
 
   enum record_type: {
-    unknown_type: 0,
-    income: 1,
-    expense: 2
+    unknown_type: "unknown_type",
+    income: "income",
+    expense: "expense"
   }
   enum category: {
-    unknown_category: 0,
-    needs: 1,
-    wants: 2
+    unknown_category: "unknown_category",
+    needs: "needs",
+    wants: "wants"
   }
 
   # Relations

@@ -21,7 +21,7 @@ RSpec.describe V1::BudgetRecord, type: :model do
     end
 
     context 'when type does not exist' do
-      let(:category_type) { 999 }
+      let(:category_type) { :unknown_type }
 
       it 'returns nothing' do
         expected_budget_records = []

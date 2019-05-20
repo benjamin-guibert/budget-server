@@ -71,14 +71,6 @@ RSpec.describe V1::MonthBudget, type: :model do
       end
     end
 
-    context 'when month is invalid' do
-      let(:month) { 'test' }
-
-      it 'returns nothing' do
-        expect(@month_budget).to be_nil
-      end
-    end
-
     context 'when month is unknown' do
       let(:month) { :december }
 
