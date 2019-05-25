@@ -6,9 +6,10 @@ default: &default
 
 development:
   <<: *default
-  database: budget_dev
+  host: db
+  port: 5432
+  database: budget
   username: budget
-  password: kowkyk-tabru4-rutRyt
 
 test:
   <<: *default
