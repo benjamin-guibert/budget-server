@@ -17,4 +17,4 @@ ENTRYPOINT [ "entrypoint.sh" ]
 
 EXPOSE 3000
 
-CMD ["rails", "server", "-p", "3000", "-b", "0.0.0.0"]
+CMD ["rails", "server", "-e", "production", "-p", "3000", "-b", "0.0.0.0"]
