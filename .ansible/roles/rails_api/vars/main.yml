@@ -1,0 +1,4 @@
+---
+db_path: "{{ www_path }}/db"
+db_container_name: "{{ app_name }}_db"
+api_container_name: "{{ app_name }}_api"

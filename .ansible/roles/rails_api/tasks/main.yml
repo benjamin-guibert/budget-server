@@ -1,0 +1,41 @@
+---
+- name: Create the network
+  docker_network:
+    name: "{{ app_name }}"
+- name: Pull the Postgres image
+  docker_image:
+    name: postgres:latest
+    source: pull
+- name: Build the Ruby on Rails API image
+  docker_image:
+    name: "{{ api_container_name }}"
+    build:
+      path: "{{ source_path }}"
+    source: build
+- name: Create the Postgres container & run
+  docker_container:
+    name: "{{ db_container_name }}"
+    image: postgres:latest
+    detach: yes
+    state: started
+    volumes:
+      - "{{ db_path }}:/var/lib/postgresql/data"
+    ports:
+      - "{{ db_port }}:5432"
+    networks:
+      - name: "{{ app_name }}"
+    env:
+      POSTGRES_USER: "{{ app_name }}"
+- name: Create the Ruby on Rails API container & run
+  docker_container:
+    name: "{{ api_container_name }}"
+    hostname: "{{ api_container_name }}"
+    image: "{{ api_container_name }}"
+    detach: yes
+    state: started
+    ports:
+      - "{{ api_port }}:3000"
+    networks:
+      - name: "{{ app_name }}"
+        links:
+          - "{{ db_container_name }}"

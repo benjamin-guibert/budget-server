@@ -1,0 +1,9 @@
+---
+- name: Create WWW directory
+  become: yes
+  file:
+    path: '{{ www_path }}'
+    state: directory
+    owner: '{{ www_user }}'
+    group: '{{ www_user }}'
+    mode: '0775'

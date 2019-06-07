@@ -1,3 +1,76 @@
+RSpec.describe 'Budget records API V1', type: :request do
+  describe 'Get /budget-records/:id' do
+    let(:budget_record_id) { 3 }
+    before { get "/budget-records/#{budget_record_id}" }
+
+    context 'when the budget record exists' do
+      it 'returns the budget record' do
+        expect(response).to have_http_status(:ok)
+
+        json = JSON.parse(response.body)
+        expect(json['id']).to eq(3)
+        expect(json['label']).to eq("Expense 2")
+        expect(json['record_type']).to eq("expense")
+        expect(json['category']).to eq("wants")
+        expect(json['date_from']).to eq("2019-02-01")
+        expect(json['date_to']).to eq("2019-02-28")
+        expect(json['amount']).to eq("23.45")
+      end
+    end
+
+    context 'when the budget record does not exist' do
+      let(:budget_record_id) { 999 }
+
+      it 'returns an error' do
+        expect(response).to have_http_status(:not_found)
+        expect(response.body).to be
+      end
+    end
+  end
+end
+
+describe 'PUT /budget-records/:id' do
+  let(:budget_record_id) { 3 }
+  let(:budget_record_params) {{
+    label: 'Label PUT',
+    category: :needs,
+    date_from: Date.new(2019, 12, 1),
+    date_to: Date.new(2019, 12, 31),
+    amount: 34.56
+  }}
+  before { put "/budget-records/#{budget_record_id}", params: budget_record_params }
+  context 'when the budget record exists' do
+    it 'updates the budget record' do
+      budget_record = V1::BudgetRecord.find(budget_record_id)
+      expect(budget_record).to have_attributes(
+        :label => 'Label PUT',
+        :record_type => 'expense',
+        :category => 'needs',
+        :amount => 34.56
+      )
+
+      expect(response).to have_http_status(:ok)
+      json = JSON.parse(response.body)
+      expect(json['id']).to eq(3)
+      expect(json['label']).to eq('Label PUT')
+      expect(json['record_type']).to eq('expense')
+      expect(json['category']).to eq('needs')
+      expect(json['date_from']).to eq('2019-02-01')
+      expect(json['date_to']).to eq('2019-02-28')
+      expect(json['amount']).to eq('34.56')
+    end
+  end
+
+  context 'when the budget record does not exist' do
+    let(:budget_record_id) { 999 }
+
+    it 'returns an error' do
+      expect(response).to have_http_status(:not_found)
+      expect(response.body).to be
+    end
+  end
+end
+
 # require 'rails_helper'
 
 # RSpec.describe 'Budget records API V1', type: :request do

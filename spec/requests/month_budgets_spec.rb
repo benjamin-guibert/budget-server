@@ -1,7 +1,6 @@
 RSpec.describe 'Month budgets API V1', type: :request do
   describe 'GET /month-budgets' do
-    let(:month_budgets_params) {}
-    before { get '/month-budgets',  params: month_budgets_params}
+    before { get '/month-budgets'}
 
     context 'when all' do
       it 'returns the month budgets' do

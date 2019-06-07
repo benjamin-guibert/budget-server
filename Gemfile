@@ -8,6 +8,7 @@ gem 'puma', '~> 3.11'
 gem 'pg'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'has_scope'
+gem 'rack-cors'
 
 group :development, :test do
   gem 'rake'

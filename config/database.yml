@@ -6,19 +6,19 @@ default: &default
 
 development:
   <<: *default
-  host: db
+  host: localhost
   port: 5432
   database: budget
   username: budget
 
 test:
   <<: *default
-  database: budget_test
+  host: localhost
+  port: 5433
+  database: budget
   username: budget
-  password: kowkyk-tabru4-rutRyt
 
 production:
   <<: *default
-  host: budget-server_db
-  database: budget-server
-  username: budget-server
+  database: budget
+  username: budget
