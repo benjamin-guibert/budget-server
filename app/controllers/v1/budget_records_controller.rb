@@ -1,13 +1,32 @@
 class V1::BudgetRecordsController < ApplicationController
 
-  # def create
-  #   budget_record = V1::BudgetRecord.create!(budget_record_params)
-  #   json_response(budget_record, :created)
-  # end
+  def create
+    @budget_record = V1::BudgetRecord.create!(budget_record_params)
+    render_budget_record(:created)
+  end
+
+  def index
+    budget_records = apply_scopes(V1::BudgetRecord)
+    render json: budget_records,
+      only: [
+        :id,
+        :label,
+        :record_type,
+        :category,
+        :date_from,
+        :date_to,
+        :amount
+      ],
+      status: :ok
+  end
 
   def show
     @budget_record = V1::BudgetRecord.find(params[:id])
-    render_budget_record()
+    if(params[:month_budget_id] && @budget_record.month_budget_id != params[:month_budget_id].to_i)
+      render status: :not_found
+    else
+      render_budget_record()
+    end
   end
 
   def update
@@ -24,7 +43,7 @@ class V1::BudgetRecordsController < ApplicationController
 
   private
 
-  def render_budget_record
+  def render_budget_record(status=:ok)
     render json: @budget_record,
       only: [
         :id,
@@ -35,10 +54,10 @@ class V1::BudgetRecordsController < ApplicationController
         :date_to,
         :amount
       ],
-      status: :ok
+      status: status
   end
 
   def budget_record_params
-    params.permit(:label, :category, :amount)
+    params.permit(:month_budget_id, :label, :record_type, :category, :amount, :date_from, :date_to)
   end
 end

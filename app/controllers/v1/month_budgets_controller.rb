@@ -24,7 +24,7 @@ class V1::MonthBudgetsController < ApplicationController
   end
 
   private
-  def render_month_budget
+  def render_month_budget(status=:ok)
     render json: @month_budget,
       include: {
         budget_records: {
@@ -45,6 +45,6 @@ class V1::MonthBudgetsController < ApplicationController
         :month,
         :initial_balance
       ],
-      status: :ok
+      status: status
   end
 end

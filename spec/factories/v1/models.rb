@@ -76,7 +76,7 @@ V1::BudgetRecord.create([{
 },{
   id: 6,
   month_budget: monthBudgets[2],
-  label: "Income 4",
+  label: "Income 4xx",
   record_type: :income,
   date_from: Date.new(2019, 3, 1),
   date_to: Date.new(2019, 3, 31),

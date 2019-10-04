@@ -122,3 +122,7 @@ V1::BudgetRecord.create([{
   date_to: Date.new(2019, 6, 30),
   amount: 3.59
 }])
+
+ActiveRecord::Base.connection.tables.each do |t|
+  ActiveRecord::Base.connection.reset_pk_sequence!(t)
+end
