@@ -1,0 +1,6 @@
+project_path: '/home/{{ ansible_ssh_user }}/projects/{{ app_name }}'
+source_path: '{{ project_path }}/src'
+build_path: '{{ project_path }}/build/{{ environment_name }}'
+dest_path: '{{ build_path }}/deploy'
+www_path: '/var/www/{{ nginx_site_name }}/html'
+www_user: www-data

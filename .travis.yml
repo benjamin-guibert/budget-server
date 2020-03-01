@@ -1,0 +1,14 @@
+language: ruby
+services:
+  - postgresql
+branches:
+  only:
+    - master
+    - release\/.*
+    - develop
+before_install:
+  - psql -c 'create database budget_test;' -U postgres
+  - gem install bundler
+before_script:
+  - cp config/database.travis.yml config/database.yml
+  - "bundle exec rake db:migrate"

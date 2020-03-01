@@ -1,0 +1,29 @@
+version: "3"
+services:
+  db:
+    container_name: budget_server_db
+    image: postgres:latest
+    # volumes:
+    # - ./tmp/db:/var/lib/postgresql/data:rw
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "budget"
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+  api:
+    container_name: budget_server_api
+    build: .
+    ports:
+      - "3001:3000"
+    depends_on:
+      - db
+  test_db:
+    container_name: budget_server_test_db
+    image: postgres:latest
+    # volumes:
+    # - ./tmp/test-db:/var/lib/postgresql/data:rw
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: "budget"
+      POSTGRES_HOST_AUTH_METHOD: "trust"

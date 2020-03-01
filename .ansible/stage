@@ -1,0 +1,5 @@
+[front]
+a60.fr:2234
+
+[stage:children]
+front

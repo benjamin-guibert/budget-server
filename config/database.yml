@@ -1,0 +1,24 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  <<: *default
+  host: localhost
+  port: 5432
+  database: budget
+  username: budget
+
+test:
+  <<: *default
+  host: localhost
+  port: 5433
+  database: budget
+  username: budget
+
+production:
+  <<: *default
+  database: budget
+  username: budget

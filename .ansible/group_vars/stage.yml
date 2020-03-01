@@ -1,0 +1,6 @@
+---
+environment_name: stage
+git_branch: develop
+nginx_site_name: fr.a60.dev.budget.api
+db_port: 5432
+api_port: 3000

@@ -1,0 +1,13 @@
+---
+- name: Clone the Git repository
+  git:
+    repo: '{{ git_repository }}'
+    dest: '{{ source_path }}'
+    version: '{{ git_branch }}'
+    clone: yes
+    update: yes
+    force: yes
+- name: Discard any change in the source directory
+  command: git reset --hard
+  args:
+    chdir: '{{ source_path }}'

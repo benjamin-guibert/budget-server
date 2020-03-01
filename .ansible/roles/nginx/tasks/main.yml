@@ -1,0 +1,12 @@
+---
+- name: Add site to enabled sites
+  become: yes
+  file:
+    src: '{{ nginx_sites_available_path }}/{{ nginx_site_name }}'
+    dest: '{{ nginx_sites_enabled_path }}/{{ nginx_site_name }}'
+    owner: '{{ root_user }}'
+    group: '{{ users_group }}'
+    mode: '0775'
+    state: link
+- name: Restart NGINX container
+  shell: 'docker exec {{ nginx_container_name }} nginx -s reload'
